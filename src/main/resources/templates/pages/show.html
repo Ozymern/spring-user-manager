@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layout/layout">
+
+<head>
+    <title>Layout</title>
+</head>
+
+<body>
+
+<div layout:fragment="content" class="right_col" role="main">
+
+
+    <div class="card bg-light">
+        <div class="card-header" th:text="${titulo}"></div>
+        <div class="card-body">
+
+            <ul class="list-group">
+                <li class="list-group-item active" th:text="${userForm.name}"></li>
+                <li class="list-group-item" th:text="${userForm.email}"></li>
+                <li class="list-group-item" th:text="${userForm.age}"></li>
+
+            </ul>
+
+        </div>
+    </div>
+
+</div>
+
+</div>
+
+</body>
+</html>

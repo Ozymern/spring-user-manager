@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layout/layout">
+
+<head>
+    <title>Layout</title>
+</head>
+
+<body>
+
+<div layout:fragment="content" class="right_col" role="main">
+
+
+    <div class="container py-4">
+
+        <div class="card bg-light">
+            <div class="card-header" th:text="${titulo}"></div>
+            <div class="card-body">
+                <h4 class="card-title">
+                    <a sec:authorize="hasRole('ROLE_ADMIN')" th:href="@{/newUser}"
+                       class="btn btn-primary btn-xs" th:text="#{text.user.create}">R</a>
+                </h4>
+
+
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+
+                        <th th:text="#{text.user.name}">NOMBRE</th>
+                        <th th:text="#{text.user.age}">EDAD</th>
+                        <th th:text="#{text.user.email}">EMAIL</th>
+                        <th sec:authorize="hasAnyRole('ROLE_USER','ROLE_ADMIN')"
+                            th:text="#{text.user.show}">VER
+                        </th>
+                        <th th:text="#{text.user.edit}"
+                            sec:authorize="hasRole('ROLE_ADMIN')">EDITAR
+                        </th>
+                        <th th:text="#{text.user.delete}"
+                            sec:authorize="hasRole('ROLE_ADMIN')">ELIMINAR
+                        </th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="user: ${userForm}">
+
+                        <td th:text="${user.name} "></td>
+                        <td th:text="${user.age} "></td>
+                        <td th:text="${user.email} "></td>
+                        <td sec:authorize="hasAnyRole('ROLE_USER','ROLE_ADMIN')"><a
+                                class="btn btn-primary btn-xs" th:href="@{/show/} + ${user.hashId}"
+                                th:text="#{text.user.show}"></a></td>
+
+                        <td sec:authorize="hasRole('ROLE_ADMIN')">
+                            <form th:action="@{/edit/}+${user.hashId}" method="get">
+                                <input type="submit" class="btn btn-primary btn-xs"
+                                       th:value="${'editar'}">
+
+                            </form>
+                        </td>
+
+                        <td sec:authorize="hasRole('ROLE_ADMIN')">
+                            <form th:action="@{/delete}" method="post">
+                                <input type="submit" class="btn btn-danger btn-xs"
+                                       th:field="*{user.hashId}"
+                                       onclick="return confirm('Estás seguro que quieres eliminar?');"
+                                       th:value="${'eliminar'}">
+
+                            </form>
+                        </td>
+
+                    </tr>
+                    </tbody>
+
+                </table>
+
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+</body>
+</html>

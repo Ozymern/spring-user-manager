@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layout/layout">
+
+<head>
+    <title>Layout</title>
+</head>
+
+<body>
+
+<div layout:fragment="content" class="right_col" role="main">
+
+    <div class="container py-4">
+
+        <div class="card bg-dark text-white">
+            <div class="card-header" th:text="${titulo}"></div>
+            <div class="card-body">
+                <h1 th:text="${titulo}"
+                    class="text-secondary border border-success border-top-0 border-left-0 border-right-0"></h1>
+                <form th:action="@{/}" th:object="${userForm}" method="post"
+                      enctype="multipart/form-data">
+
+                    <div class="form-group row">
+                        <label for="nombre" class="col-sm-2 col-form-label">Nombre</label>
+                        <div class="col-sm-6">
+                            <input type="text" th:field="*{name}" class="form-control"
+                                   th:errorclass="'form-control alert-danger'"/>
+                            <small
+                                    class="form-text text-danger"
+                                    th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></small>
+                            <!-- 				th:if="${#fields.hasErrors('nombre')}"=ver si el campo trae errores th:errors="*{nombre}" = mostrar los errores -->
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="nombre" class="col-sm-2 col-form-label">Edad</label>
+                        <div class="col-sm-6">
+                            <input type="text" th:field="*{age}" class="form-control"
+                                   th:errorclass="'form-control alert-danger'"/>
+                            <small
+                                    class="form-text text-danger"
+                                    th:if="${#fields.hasErrors('age')}" th:errors="*{age}"></small>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label for="nombre" class="col-sm-2 col-form-label">Email</label>
+                        <div class="col-sm-6">
+                            <input type="text" th:field="*{email}" class="form-control"
+                                   th:errorclass="'form-control alert-danger'"/>
+                            <small
+                                    class="form-text text-danger"
+                                    th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></small>
+                        </div>
+                    </div>
+
+
+                    <div class="form-group row">
+                        <label for="fechaCreacion" class="col-sm-2 col-form-label">Password</label>
+                        <div class="col-sm-6">
+                            <input type="password" class="form-control"
+                                   th:field="*{password}"
+                                   th:errorclass="'form-control alert-danger'"/>
+                            <small
+                                    class="form-text text-danger"
+                                    th:if="${#fields.hasErrors('password')}"
+                                    th:errors="*{password}"></small>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <div class="col-sm-6">
+                            <input type="submit" th:value="${submit}"
+                                   class="btn btn-primary"/>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+
+</body>
+</html>
